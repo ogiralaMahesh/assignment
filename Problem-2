@@ -1,0 +1,29 @@
+def generate_steps(num1, num2):
+    # convert numbers to strings to access individual digits
+    str1 = str(num1)[::-1]
+    str2 = str(num2)[::-1]
+    
+    steps = {}
+    carry = '0'
+    
+    for i in range(max(len(str1), len(str2))):
+        # add digits at current place value
+        digit1 = int(str1[i]) if i < len(str1) else 0
+        digit2 = int(str2[i]) if i < len(str2) else 0
+        temp_sum = digit1 + digit2 + int(carry)
+        
+        # update carry and sum for current step
+        if temp_sum >= 10:
+            carry = '1' * (i+2) # update carry string
+            current_sum = str(temp_sum)[-1] # extract last digit of sum
+        else:
+            carry = '0'
+            current_sum = str(temp_sum)
+            
+        # update step dictionary
+        steps['step'+str(i+1)] = {'carryString': carry, 'sumString': current_sum.zfill(i+1)}
+    
+    # reverse the order of steps since we built it in reverse
+    steps = {key: steps[key] for key in reversed(steps)}
+    
+    return steps
