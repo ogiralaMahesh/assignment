@@ -1,0 +1,9 @@
+# Loop through all possible two or more digit numbers
+for num in range(10, 100):
+    digits = [int(d) for d in str(num)]
+    
+    # Check if digits on left are always smaller than digits on right
+    if all(digits[i] < digits[i+1] for i in range(len(digits)-1)):
+        count += 1
+
+print("Number of valid two or more digit numbers: ", count)
